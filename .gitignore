@@ -1,0 +1,8 @@
+.DS_Store
+Thumbs.db
+.env
+*.db
+*.db-shm
+*.db-wal
+.idea/
+.vscode/
