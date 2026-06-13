@@ -51,7 +51,7 @@ system-guardian/
 
 ## 赞助获取完整版
 
-☕ [国内赞助（爱发电）]() | [海外赞助（Buy Me a Coffee）]()
+☕ [国内赞助（爱发电）](https://afdian.com/a/meijiexueAI) | [海外赞助（Buy Me a Coffee）]()
 
 **完整版包含：**
 - ✅ 自查扩展至7项（记忆水位、内容锚点、版本锚等）

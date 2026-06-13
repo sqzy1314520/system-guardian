@@ -69,7 +69,7 @@ platforms: [linux, macos, windows]
 - ✅ 审计报告自动生成
 - ✅ 后续所有更新
 
-☕ [国内赞助（爱发电）](链接) ｜ [海外赞助（Buy Me a Coffee）](链接) ｜ 深度赞助 199 元含一对一远程指导
+☕ [国内赞助（爱发电）](https://afdian.com/a/meijiexueAI) ｜ [海外赞助（Buy Me a Coffee）]() ｜ 深度赞助 199 元含一对一远程指导
 
 ## License
 
