@@ -1,67 +1,183 @@
-# System Guardian · 系统卫士
+# System Guardian · 系统卫士 🇨🇳🌐
 
-> 构建 → 自查 → 审计 → 看听读说创，管好你的 Hermes 系统。
+> 构建 → 自查 → 审计 → 能力，四合一管好你的 Hermes 系统。
+> **Build → Check → Audit → Capability — Four modes to govern your Hermes Agent.**
 
-一个技能，覆盖 Hermes 治理体系的全生命周期。从刚装完不知道做什么的小白，到每天快速检查系统健康，再到定期深度审计排查隐患。
+[![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Hermes Agent](https://img.shields.io/badge/Hermes%20Agent-v0.10%2B-blueviolet)](https://hermes-agent.nousresearch.com)
+[![Skill](https://img.shields.io/badge/agentskills.io-compatible-orange)](https://agentskills.io)
 
-## 公开版（免费）
+---
 
-| 模块 | 状态 |
-|------|------|
-| 🏗️ 系统构建 | ✅ 完整开放 |
-| ✅ 系统自查 | ✅ 基础3项 |
-| 🔍 系统审计 | ❌ 需赞助获取 |
-| 📋 系统能力 | ✅ 完整开放 |
+## Why System Guardian?
 
-## 安装
+Hermes Agent is powerful — but it's also **easy to break**.
+
+New users install it and don't know: *"Where do I start? What do I configure? Is my agent secure?"*
+
+Experienced users ask: *"Is everything still healthy? Did my cron jobs stop running? Did a config drift?"*
+
+**System Guardian answers both.** One skill, three modes, from zero to production-hardened.
+
+- 🏗️ **Build** — Three questions, one command, a fully governed Hermes Agent. SOUL.md, config.yaml, .bashrc, content anchors, compliance checks — all set up automatically.
+- ✅ **Check** — Daily health check. 10 items in 3 seconds. Identity, version anchors, script integrity, memory watermarks, content assertions, path hygiene, service health.
+- 🔍 **Audit** — 6-dimension deep architecture probe. Pipeline integrity, governance coverage, monitoring, routing, scheduling, foundations. *(Premium)*
+- 📋 **Capability** — See what your agent can (and cannot) do. Five dimensions: See, Hear, Read, Speak, Create.
+
+---
+
+## Demo
+
+### One command, 10 checks, 3 seconds
+
+![self-check](https://img.shields.io/badge/demo-terminal_output-blue)
+
+```
+═══════════════════════════════════════════
+  执行纪律巡检 · 2026-06-15 17:19
+═══════════════════════════════════════════
+
+── 1. 身份合规 ——
+✅ 根SOUL身份正确
+✅ 各场景无身份冲突声明
+
+── 2. 记忆写入冷却期 ——
+✅ 冷却期已过
+
+── 3. 版本锚 ——
+✅ 版本锚全部一致 (v3.3)
+
+── 4. 规则条数一致性 ——
+✅ 15条 v3.3 全部通过
+
+── 5. 脚本自校验 ——
+✅ 脚本完整性校验通过
+
+── 6. 记忆字符水位 ——
+⚠️ 2个文件接近上限
+✅ 字符水位检查完成
+
+── 7. 内容锚点核对 ——
+✅ 7份核心文件，64个断言全部通过
+
+── 8. 全局路径绝对性 ——
+✅ 所有路径均为绝对路径
+
+── 9. 运行时服务健康 ——
+✅ STT / Playwright 就绪
+
+── 10. 能力归属 ——
+✅ 所有 skill 已归属
+
+═══════════════════════════════════════════
+  通过（3项警告）🟡
+═══════════════════════════════════════════
+```
+
+### Capability matrix
+
+```
+╔══════════════════════════════════╗
+║         Capability Matrix        ║
+╠══════════════════════════════════╣
+║ 👁️  See     ████████░░  80%     ║
+║ 👂  Hear    ████████░░  80%     ║
+║ 📖  Read    ██████████ 100%     ║
+║ 🗣️  Speak   ██████████ 100%     ║
+║ 🎨  Create  ██████░░░░  60%     ║
+╚══════════════════════════════════╝
+```
+
+---
+
+## Quick Start
 
 ```bash
 hermes skills install https://github.com/sqzy1314520/system-guardian/raw/main/SKILL.md
 ```
 
-## 一句话使用
+Then just say:
 
-| 你说 | 干什么 |
-|------|--------|
-| "帮我建系统" | 三问题自动搭建 |
-| "检查一下" | 基础3项自查 |
-| "查看能力" | 看听读说创五维状态 |
+| You Say | What Happens |
+|---------|-------------|
+| "帮我建系统" / "Build my system" | 3-question wizard → auto-configures Hermes governance |
+| "检查一下" / "Check health" | 10-item health scan in 3 seconds |
+| "查查哪里不对" / "Audit deep" | 6-dimension deep audit *(premium)* |
+| "我能做什么" / "Capabilities" | See/Hear/Read/Speak/Create matrix |
 
-## 项目结构
+---
+
+## Editions
+
+| Module | Free (MIT) | Premium (Sponsor) |
+|--------|-----------|-------------------|
+| 🏗️ Build wizard | ✅ Full | ✅ Full |
+| ✅ Self-check | ✅ 10 items | ✅ 10 items + auto script |
+| 🔍 Architecture audit | ❌ | ✅ 6-dimension + triad report |
+| 📋 Capability matrix | ✅ Full | ✅ Full |
+| 📜 One-click check script | ❌ | ✅ `compliance-check.sh` |
+| 📜 Audit report script | ❌ | ✅ `audit-report.sh` |
+| 🆕 All future updates | ✅ | ✅ |
+| 👨‍💻 1-on-1 setup guidance | ❌ | ✅ Deep sponsor |
+
+---
+
+## Project Structure
 
 ```
 system-guardian/
-├── SKILL.md                    ← 公开版主入口
+├── SKILL.md                        ← Free edition entry point
 ├── references/
-│   ├── build-guide.md          ← 构建模式
-│   ├── check-procedure.md      ← 自查基础3项
-│   └── capability-guide.md     ← 五维能力
-├── premium/                    ← 完整版（赞助获取）
+│   ├── build-guide.md              ← Build mode walkthrough
+│   ├── check-procedure.md          ← Self-check items (basic)
+│   └── capability-guide.md         ← 5-dimension capability
+├── premium/                        ← Premium (sponsor access)
 │   ├── SKILL.md
 │   ├── references/
-│   │   ├── check-procedure.md  ← 完整7项
-│   │   └── audit-protocol.md   ← 6维度审计
+│   │   ├── check-procedure.md      ← Full 10 items
+│   │   ├── audit-protocol.md       ← 6-dimension audit
+│   │   └── monetization-strategy.md
 │   └── scripts/
-│       ├── compliance-check.sh ← 一键自检
-│       └── audit-report.sh     ← 审计报告
+│       ├── compliance-check.sh     ← One-click health check
+│       └── audit-report.sh         ← Audit report generator
 ├── README.md
 ├── CHANGELOG.md
 └── LICENSE
 ```
 
-## 赞助获取完整版
+---
 
-☕ [国内赞助（爱发电）](https://afdian.com/a/meijiexueAI) | [海外赞助（Buy Me a Coffee）]()
+## Sponsor · 赞助
 
-**完整版包含：**
-- ✅ 自查扩展至7项（记忆水位、内容锚点、版本锚等）
-- ✅ 6维度架构审计 + 三幕法报告
-- ✅ 一键自检脚本（终端直接运行）
-- ✅ 审计报告自动生成
-- ✅ 后续所有更新
+| Tier | Price | What you get |
+|------|-------|-------------|
+| ☕ Basic | 19.9 CNY / $5 USD | Premium skill pack (audit + scripts) |
+| 🏆 Deep | 199 CNY / $30 USD | Premium + 1-on-1 remote setup guidance |
 
-深度赞助199元含一对一远程搭建指导。
+- 🇨🇳 [爱发电](https://afdian.com/a/meijiexueAI)
+- 🌐 [Buy Me a Coffee](https://buymeacoffee.com/sqzy1314520)
+
+---
+
+## Community
+
+- 🐛 [Report Issues](https://github.com/sqzy1314520/system-guardian/issues)
+- 💬 [Hermes Agent Discord](https://discord.gg/nousresearch) — share in `#plugins-skills-and-skins`
+- 📖 [Hermes Agent Docs — Skills](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills)
+- ⭐ [Star on GitHub](https://github.com/sqzy1314520/system-guardian) — helps others find this!
+
+---
+
+## Topics
+
+`hermes-agent` `agent-governance` `self-check` `ai-governance` `devops` `system-guardian` `agentskills` `nous-research`
+
+---
 
 ## License
 
-MIT（公开版）
+MIT — Free edition. Premium edition requires sponsor access.
+
+---
+
+*Built with ❤️ for the Hermes Agent community. 为 Hermes Agent 社区而生。*
