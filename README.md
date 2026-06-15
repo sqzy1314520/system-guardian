@@ -30,49 +30,9 @@ Experienced users ask: *"Is everything still healthy? Did my cron jobs stop runn
 
 ### One command, 10 checks, 3 seconds
 
-![self-check](https://img.shields.io/badge/demo-terminal_output-blue)
+![self-check-demo](screenshot-selfcheck.png)
 
-```
-═══════════════════════════════════════════
-  执行纪律巡检 · 2026-06-15 17:19
-═══════════════════════════════════════════
-
-── 1. 身份合规 ——
-✅ 根SOUL身份正确
-✅ 各场景无身份冲突声明
-
-── 2. 记忆写入冷却期 ——
-✅ 冷却期已过
-
-── 3. 版本锚 ——
-✅ 版本锚全部一致 (v3.3)
-
-── 4. 规则条数一致性 ——
-✅ 15条 v3.3 全部通过
-
-── 5. 脚本自校验 ——
-✅ 脚本完整性校验通过
-
-── 6. 记忆字符水位 ——
-⚠️ 2个文件接近上限
-✅ 字符水位检查完成
-
-── 7. 内容锚点核对 ——
-✅ 7份核心文件，64个断言全部通过
-
-── 8. 全局路径绝对性 ——
-✅ 所有路径均为绝对路径
-
-── 9. 运行时服务健康 ——
-✅ STT / Playwright 就绪
-
-── 10. 能力归属 ——
-✅ 所有 skill 已归属
-
-═══════════════════════════════════════════
-  通过（3项警告）🟡
-═══════════════════════════════════════════
-```
+*10-item health scan. 3 seconds. One command.*
 
 ### Capability matrix
 
