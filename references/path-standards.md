@@ -189,3 +189,4 @@ pip list | grep -i -E "whisper|sounddevice"
 - 扫描所有 config.yaml 的 MCP args → 不能有相对路径或占位符
 - 扫描 .bashrc 自检路径 → 必须用 $HOME 或绝对路径
 - 扫描所有 terminal.cwd → 不能有相对路径（"." 除外）
+- 扫描所有 Python 脚本 → 禁止 `os.path.expanduser("~/.hermes")`，必须用 `os.environ.get("HERMES_HOME", os.path.expanduser("~/.hermes"))`
