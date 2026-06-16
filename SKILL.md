@@ -1,7 +1,7 @@
 ---
 name: system-guardian
 description: "构建→自查→审计→能力→定时，五合一管好你的 Hermes 系统。小白引导开箱，每日自检保平安，深度审计查隐患，五维能力看边界，三句话部署定时任务。"
-version: 1.10.0
+version: 1.11.0
 category: infra
 created: 2026-06-13
 updated: 2026-06-16
@@ -49,7 +49,7 @@ baseline:
 4. **不主动问"继续吗"** —— 执行完直接展示下一步的选项
 5. **用户确认后不露痕迹** —— 只说"好的"或"记下了"，不说"第一步完成""技术动作执行"
 6. **固化内容不感知** —— 系统必须的配置直接写，不展示操作过程
-7. **中台思维** —— 勇哥问意见时，先给专业判断再出方案，不要反问。给出数据支撑 + 明确推荐（"我的建议：选X"），选项作为上下文补充而非主输出。"你是中台啊"意思是你要做判断，不是把决策扔回去
+7. **中枢思维（你是中台，不是办事员）** —— 你是全局架构师，不是单场景执行者。对全局负责，改一处想全域。勇哥问意见时，先给专业判断再出方案，不要反问。给出数据支撑 + 明确推荐（"我的建议：选X"），选项作为上下文补充而非主输出。"你是中台啊"意思是你要做判断，不是把决策扔回去。全局思考不是可选项，是原则。问自己：我这个决策影响其他几个场景？
 
 8. **使用感知优先于技术实现** —— 做方案对比时，先问「用户在哪个渠道感知到结果」，再问「技术上怎么实现」。技术选项的取舍依据不是「更干净/更省资源/更架构优雅」，是「用户用起来的感觉对不对」。举例：recreation配了QQ Bot，cron就应该推QQ，而不是只看「要不要多起一个Gateway进程」这种技术维度。推荐语格式：「用A用户会在B上看到C的结果」。
 
@@ -65,10 +65,13 @@ baseline:
 11. **系统性修复** —— 修复一个问题时，不只是修当前这一个表面现象，要检查全域同类裂缝。三层递进：
 
 12. **效率优先，不等不靠** —— 收到需求后先判断：这是基本需要还是需要讨论的问题？
-    a. **基本需要**（如配置缺失、文件缺失、记忆溢出等明显缺陷）→ 直接执行，不问「需要吗」「要不要做」
+    a. **基本需要**（如配置缺失、文件缺失、记忆溢出等明显缺陷）→ 直接执行，不问「需要吗」「要不要做」。**这是基本需要，不是可选项。**
     b. **需要讨论的**（架构选型、方案对比、方向摇摆）→ 先给专业判断，再出选项，不问「你想选哪个」
     c. **查询类**（查数据、查状态、查记录）→ 直接查、直接给答案，不绕路、不解释排查过程
-    检验标准：用户问完问题到收到答案之间的步数。超过2步就是在绕路。常见绕路行为：先问「查哪个场景」再查、先展示中间过程再给结果、先问「需要吗」再动手。
+    检验标准：用户问完问题到收到答案之间的步数。超过2步就是在绕路。
+    常见绕路行为：先问「查哪个场景」再查、先展示中间过程再给结果、先问「需要吗」再动手。
+    **被纠正过的问题（如「需要加这个机制吗」），已经证明是基本需要——同类问题不再问。**
+    **全局同步不需要问。** 一处改了，同类场景（work/study/recreation/shici）自动同步。问「要不要逐个配」等于把中枢职责甩给勇哥——改一处想全域是原则，不是可选项。已被纠正。
     a. **个案还是模式？** —— 一处配置缺了，检查所有场景。一个 job 推不了微信，检查所有 deliver=origin 的 job。一时钟格式错了，检查所有 interval 型 job
     b. **修完还要验证什么？** —— 不只是验证刚修的那个路径，还要验证同类路径：同架构的其他组件、同模式的其他配置项、同维度的其他场景。修完不自检不算完成
     c. **下次怎么自动发现？** —— 这次暴露的问题能不能加到 compliance-check 自检项里？能不能写进 pitfalls 让下次加载的人看到？能不能改造成一个可复用的操作范式？
@@ -174,6 +177,85 @@ compliance-check 每次启动审计（L3）：水位/活性/治理合规
 
 ---
 
+## 闭环治理机制
+
+三层记忆系统之上，运行五套闭环治理机制，保证系统持续健康，不只是「当下没问题」。
+
+### ① Goal 追踪系统
+
+**定位：** 让系统自己判断「是否达成目标」，不等人看。
+
+5 个预设目标定义在 `~/.hermes/audit/goals.yaml`。每次 compliance-check 后自动评估：
+
+| Goal | 条件 | 类型 | 目标 |
+|------|------|:----:|:----:|
+| 系统全绿 | compliance-check 无违规 | streak | 连续7天 |
+| 心跳新鲜 | HEARTBEAT 不超27h | streak | 连续7天 |
+| 外部记忆可用 | mnemosyne 读写通过 | streak | 连续7天 |
+| 定时任务在跑 | cron 有运行记录 | streak | 连续7天 |
+| 版本锚一致 | 全场景版本号一致 | streak | 连续7天 |
+
+连续达标天数写入 streak 文件，断一天归零。≥7天标记为 🏆 达成，写入 mnemosyne + ACHIEVED 通知文件，开机自检时主动报告。
+
+### ② 系统状态摘要
+
+**定位：** 过去7天趋势，不只看「现在绿不绿」。
+
+每次 compliance-check 后，`state-summary.py` 从 mnemosyne 查询过去7天的 goal 记录，产出趋势视图：
+
+```
+Goal 达成趋势（过去7天）：
+  06-10 ████████░░ 4/5
+  06-11 ████████░░ 4/5
+  06-12 █████████░ 5/5 ← 全绿
+  ...
+```
+
+同时落盘到 `~/.hermes/audit/STATE.md`，随时可 `cat` 查看。
+
+### ③ Maker-Checker 分离
+
+**定位：** 不让同一个视角既做评估又做验证。
+
+| 角色 | 评估内容 | 运行时机 |
+|:----:|---------|---------|
+| **Maker** | 表层：SOUL/approvals/HEARTBEAT/mnemosyne 存在性 | compliance-check 即时 |
+| **Checker** | 深层：版本锚/cron活性/读写验证/Goal追踪 | 独立 cron + delegate_task 分流 |
+
+两个角色读不同的数据源、在不同时间点运行、不知道对方的结果。结果不一致时交叉验证升级告警。
+
+### ④ delegate_task 分流
+
+**定位：** 复杂任务不污染主对话上下文。
+
+compliance-check 发现违规时不直接调用 Checker，而是写入 `trigger-checker` 触发文件。下次开机自检时通过 `delegate_task` 在完全隔离的子代理上下文中运行 Checker。子代理不知道 Maker 的 PASS/FAIL 结果。
+
+当前三层分流：
+
+```
+compliance-check（Maker）
+  ↓ 写入 trigger-checker
+开机自检 → delegate_task → 独立 Checker 子代理
+  ↓ 隔离运行
+返回诊断摘要 → 删除 trigger-checker
+```
+
+### ⑤ 独立 Checker cron
+
+**定位：** 不依赖对话触发，系统自愈巡逻。
+
+cron job `independent-checker` 每6小时运行一次，调用 `checker-cron.sh` → `syndrome-detect.sh`。正常时安静退出（no_agent 空输出 = 静默）。发现异常时写入 `CHECKER_ALERT` 文件，开机自检时主动报告。
+
+**三层触发：**
+
+| 触发方式 | 延迟 | 适用场景 |
+|---------|:----:|---------|
+| compliance-check 即时 | 0 | 每次对话后立即检查 |
+| delegate_task 开机自检 | 次对话 | 深度隔离诊断 |
+| cron 每6小时 | ≤6h | 无人值守时自动巡逻 |
+
+---
+
 ## 自查模式
 
 **裸机检测（入口前置判断）：**
@@ -211,7 +293,9 @@ compliance-check 每次启动审计（L3）：水位/活性/治理合规
 自查回答「系统现在好用吗」——功能可见性检查，覆盖广但不深。
 审计回答「系统架构健康吗」——架构穿透性检查，7维度三幕法，发现裂缝分级定修复方向。
 
-**症候群诊断（v1.10.0 新增）：** compliance-check 运行后自动调用 `scripts/syndrome-detect.sh`，检测关联故障模式并指向根因。不重新检查各项，只读取已存在的文件做关联分析。目前支持3种症候群：
+**症候群诊断（v1.10.0）：** compliance-check 运行后自动调用 `scripts/syndrome-detect.sh`，检测关联故障模式并指向根因。不重新检查各项，只读取已存在的文件做关联分析。目前支持3种症候群：
+
+**Goal 评估（v1.11.0）：** compliance-check 运行后自动调用 `scripts/goal-eval.sh`，评估5个系统目标的达成状态。每个 goal 支持连续天数追踪（streak），达标 target_days 后自动标记 🏆 达成。评估结果持久化到 mnemosyne（source=__goal__）。目标定义在 `goals.yaml`。
 
 | 症候群 | 症状组合 | 诊断 |
 |--------|---------|------|
@@ -630,7 +714,7 @@ Hermes 以 `--profile <name>` 启动时，会将 `$HOME` 重写为 `$HERMES_HOME
 
 - 构建模式完整引导流程：`skill_view(name="system-guardian", file_path="references/build-guide.md")`
 - 自查模式检查项：`skill_view(name="system-guardian", file_path="references/check-procedure.md")`
-- 五维能力详情与分级模型：`skill_view(name="system-guardian", file_path="references/capability-guide.md")` + `audit/capability-hierarchy.md`
+- 五维能力详情与分级模型：`skill_view(name="system-guardian", file_path="references/capability-guide.md")` + `audit/capability-hierarchy.md`\n- 效率优化手册：P0 工具集裁剪 + P1 合并调用 + P2 分流策略：`skill_view(name="system-guardian", file_path="references/efficiency-playbook.md")`
 - `$HOME` 重写陷阱修复模式：`skill_view(name="system-guardian", file_path="references/home-override-fix.md")`
 - 变现与分发策略：`skill_view(name="system-guardian", file_path="references/monetization-strategy.md")`
 - 审计模式完整流程：`skill_view(name="system-guardian", file_path="references/audit-protocol.md")`
@@ -642,5 +726,9 @@ Hermes 以 `--profile <name>` 启动时，会将 `$HOME` 重写为 `$HERMES_HOME
 - 实战案例·2026-06-15 全系统审计：skill_view(name='system-guardian', file_path='references/audit-example-2026-06-15.md')
 - README 终端截图制作：skill_view(name='system-guardian', file_path='references/readme-screenshot-workflow.md')
 - Cron 架构决策日志：skill_view(name='system-guardian', file_path='references/cron-architecture-decision-log.md')
-- 症候群诊断脚本：skill_view(name='system-guardian', file_path='scripts/syndrome-detect.sh')
-- GitHub 推广展示指南：skill_view(name='system-guardian', file_path='references/github-promotion-guide.md')
+- 症候群诊断脚本：`skill_view(name='system-guardian', file_path='scripts/syndrome-detect.sh')`
+- Loop Engineering 深度学习笔记：`skill_view(name='system-guardian', file_path='references/loop-engineering-notes.md')`
+- Goal 系统架构与 Maker-Checker 分离：`skill_view(name='system-guardian', file_path='references/goal-system.md')`
+- Goal 评估脚本：`skill_view(name='system-guardian', file_path='scripts/goal-eval.sh')`
+- 状态摘要脚本：`skill_view(name='system-guardian', file_path='scripts/state-summary.py')`
+- GitHub 推广展示指南：`skill_view(name='system-guardian', file_path='references/github-promotion-guide.md')`
