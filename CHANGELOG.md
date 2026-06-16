@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.16.0 (2026-06-16)
+- path-standards.md: 新增「标准依据」节，引用 Hermes Issue #892/#8669 确认 `expanduser("~/.hermes")` 为社区标准 fallback
+- $HOME 重写陷阱 pitfall: 统一到社区标准模式（`os.environ.get("HERMES_HOME", expanduser("~/.hermes"))` / `HERMES_HOME="${HERMES_HOME:-$HOME/.hermes}"`）
+- 新增系统性扫描方法论: 四层扫描 + 修复优先级 + 批量修复验证流程
+- compliance-check: 新增第13项「路径写法合规」自动扫描
+
 ## v1.1.0 (2026-06-16)
 
 - 自查模式重新定义：基础3项 → 6维度全功能健康检查（外部记忆/定时任务/五维能力/渠道通断/技能加载/纪律合规）
