@@ -85,12 +85,6 @@ No config files to edit. No YAML to write. Just talk to your agent.
 
 ---
 
-## Who's using it · 谁在用
-
-- **智正行动 / 中国联通镇江分公司** — production-hardened Hermes governance since June 2026. 5 scenes (work/study/recreation/shici/control), shared memory database, 749 records, 7 cron jobs, 12-item compliance check.
-
-*Using System Guardian in your org? [Let us know](https://github.com/sqzy1314520/system-guardian/issues) and we'll add you here.*
-
 ---
 
 ## Sponsor · 赞助
