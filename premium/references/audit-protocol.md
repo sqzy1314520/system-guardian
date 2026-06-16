@@ -1,32 +1,31 @@
-# 审计模式 · 6维度探针
+# 审计模式 · 三幕法输出 + 7维度探针
 
-## 6维度
+## 7维度探针
 
-### ① 约束管道
-检查 approvals.mode / tirith_enabled / .bashrc触发 / 跨profile守卫。
+| 维度 | 检查内容 | 验证方法 |
+|------|---------|---------|
+| 1. 约束管道 | approvals.mode、Tirith、.bashrc自检、跨profile守卫 | grep config.yaml + 检查守卫实际拦截 |
+| 2. 控制治理 | control治理权声明、版本锚一致性 | 各场景SOUL.md 版本号比对 |
+| 3. 监督检查 | audit目录完整性、HEARTBEAT新鲜度、agent.log存在性 | ls audit/ + 计算HEARTBEAT时效 |
+| 4. 协调路由 | route_manager.sh、external_dirs配置、场景边界 | 检查文件存在性 + config.yaml |
+| 5. 调度执行 | cron job 列表、last_status、memory-pending.md | cronjob list + cat 暂存文件 |
+| 6. 基础完整性 | 根SOUL关键锚点、content-anchors断言 | compliance-check.sh 自动验证 |
+| 7. 外部记忆 | 场景 memory.provider、数据库活性、工具挂载 | compliance-check 第11项 + sqlite3 count |
 
-### ② 控制治理
-检查 control 治理权声明 / 版本锚一致性。
+## 输出格式（三幕法）
 
-### ③ 监督检查
-检查审计日志 / 心跳 / cron job 状态。
+### 第一幕：肯定——做对了什么
+列举系统中正确的管道、治理、监督、完整性成果。
 
-### ④ 协调路由
-检查 route_manager / external_dirs 配置。
+### 第二幕：否定——发现的裂缝（严重度分级）
 
-### ⑤ 调度执行
-检查各profile cron job 的 last_status 和 next_run。
+| 等级 | 含义 | 响应时间 |
+|------|------|---------|
+| P0 | 系统功能受阻 | 立即修复 |
+| P1 | 长期运行隐患 | 当天修复 |
+| P2 | 配置/风格问题 | 按需修复 |
+| P3 | 信息残留 | 顺手清理 |
 
-### ⑥ 基础完整性
-检查根SOUL 7个关键锚点（第3条/第4条/第5条/冲突裁决/边界/治理权/版本声明）。
+### 第三幕：再肯定——修复方向（优先级建议）
 
-## 三幕法报告
-
-```
-L1 纪律巡检  ✅ N  ⚠️ N  ❌ N
-L2 架构探针  ✅ N  ⚠️ N  ❌ N
-
-第一幕 · 肯定——做对了什么
-第二幕 · 否定——发现的裂缝（严重度P0/P1/P2）
-第三幕 · 再肯定——修复方向
-```
+表格列示：裂缝 → 修复动作 → 优先级 → 预估时长

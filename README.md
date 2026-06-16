@@ -20,8 +20,8 @@ Experienced users ask: *"Is everything still healthy? Did my cron jobs stop runn
 **System Guardian answers both.** One skill, three modes, from zero to production-hardened.
 
 - 🏗️ **Build** — Three questions, one command, a fully governed Hermes Agent. SOUL.md, config.yaml, .bashrc, content anchors, compliance checks — all set up automatically.
-- ✅ **Check** — Daily health check. 10 items in 3 seconds. Identity, version anchors, script integrity, memory watermarks, content assertions, path hygiene, service health.
-- 🔍 **Audit** — 6-dimension deep architecture probe. Pipeline integrity, governance coverage, monitoring, routing, scheduling, foundations. *(Premium)*
+- ✅ **Check** — Full health check. 6 dimensions: external memory, cron jobs, 5-dimension capability, channel connectivity, skills loading, compliance. 3 seconds.
+- 🔍 **Audit** — 7-dimension deep architecture probe. Pipeline integrity, governance coverage, monitoring, routing, scheduling, foundations, memory governance. *(Premium)*
 - 📋 **Capability** — See what your agent can (and cannot) do. Five dimensions: See, Hear, Read, Speak, Create.
 
 ---
@@ -61,7 +61,7 @@ Then just say:
 | You Say | What Happens |
 |---------|-------------|
 | "帮我建系统" / "Build my system" | 3-question wizard → auto-configures Hermes governance |
-| "检查一下" / "Check health" | 10-item health scan in 3 seconds |
+| "检查一下" / "Check health" | 6-dimension health scan in 3 seconds |
 | "查查哪里不对" / "Audit deep" | 6-dimension deep audit *(premium)* |
 | "我能做什么" / "Capabilities" | See/Hear/Read/Speak/Create matrix |
 
@@ -72,8 +72,8 @@ Then just say:
 | Module | Free (MIT) | Premium (Sponsor) |
 |--------|-----------|-------------------|
 | 🏗️ Build wizard | ✅ Full | ✅ Full |
-| ✅ Self-check | ✅ 10 items | ✅ 10 items + auto script |
-| 🔍 Architecture audit | ❌ | ✅ 6-dimension + triad report |
+| ✅ Self-check | ✅ 6 dimensions | ✅ 6 dimensions + auto script |
+| 🔍 Architecture audit | ❌ | ✅ 7-dimension + triad report |
 | 📋 Capability matrix | ✅ Full | ✅ Full |
 | 📜 One-click check script | ❌ | ✅ `compliance-check.sh` |
 | 📜 Audit report script | ❌ | ✅ `audit-report.sh` |
