@@ -67,18 +67,22 @@ Then just say:
 
 ---
 
-## Editions
+## Editions · 版本
 
-| Module | Free (MIT) | Premium (Sponsor) |
-|--------|-----------|-------------------|
-| 🏗️ Build wizard | ✅ Full | ✅ Full |
-| ✅ Self-check | ✅ 6 dimensions | ✅ 6 dimensions + auto script |
-| 🔍 Architecture audit | ❌ | ✅ 7-dimension + triad report |
-| 📋 Capability matrix | ✅ Full | ✅ Full |
-| 📜 One-click check script | ❌ | ✅ `compliance-check.sh` |
-| 📜 Audit report script | ❌ | ✅ `audit-report.sh` |
-| 🆕 All future updates | ✅ | ✅ |
-| 👨‍💻 1-on-1 setup guidance | ❌ | ✅ Deep sponsor |
+System Guardian 分层解决三个不同的问题，而非按功能多少切割：
+
+| | 模块 | L1 向导版 | L2 稳定版 | L3 诊断版 |
+|:---:|------|:---------:|:---------:|:---------:|
+| 🏗️ | 系统构建 | ✅ 三问题自动搭建 | ✅ 全功能 | ✅ 全功能 |
+| ✅ | 系统自查 | — | ✅ 6维度健康检查 | ✅ 6维度 + 一键脚本 |
+| 🔍 | 系统审计 | — | — | ✅ 7维度三幕法报告 |
+| 📋 | 系统能力 | ✅ 五维能力展示 | ✅ 五维能力展示 | ✅ 五维能力展示 |
+| 📜 | 一键自检脚本 | — | — | ✅ `compliance-check.sh` |
+| 📜 | 审计报告脚本 | — | — | ✅ `audit-report.sh` |
+| 📖 | 使用场景 | 刚装好不知从何入手 | 日常健康巡检 | 出故障需要排查根因 |
+| 💰 | 价格 | **免费** | **免费** | **赞助获取** |
+
+**不是"免费版少功能，付费版多功能"。是"你遇到的问题不同，需要的能力不同。"**
 
 ---
 
