@@ -13,7 +13,7 @@ platforms: [linux, macos, windows]
 
 # System Guardian · 系统卫士
 
-**系统版本：v3.6**（根SOUL版本，统一标识智正行动系统）
+**系统版本：v3.7**（根SOUL版本，统一标识智正行动系统）
 
 > ⚠️ 构建模式会修改你的系统配置文件（SOUL.md、config.yaml、.bashrc），建议先备份再使用。
 
