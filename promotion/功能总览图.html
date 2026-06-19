@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Guardian 功能总览</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+    background: #0c0c14; color: #e0e0e8;
+    width: 1200px; height: 1600px; overflow: hidden;
+    display: flex; flex-direction: column; padding: 60px;
+  }
+
+  /* 标题区域 */
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 50px; }
+  .header-left h1 { font-size: 42px; font-weight: 900; color: #fff; letter-spacing: -1px; }
+  .header-left h1 span { color: #e8c547; }
+  .header-left p { font-size: 18px; color: #8888a0; margin-top: 8px; }
+  .header-right {
+    background: #1a1a28; border: 1px solid #2a2a3a; border-radius: 12px;
+    padding: 16px 24px; text-align: center;
+  }
+  .header-right .num { font-size: 36px; font-weight: 700; color: #e8c547; }
+  .header-right .label { font-size: 13px; color: #8888a0; margin-top: 2px; }
+  .badge-row { display: flex; gap: 8px; margin-top: 16px; }
+  .badge { 
+    background: #1a1a28; border: 1px solid #2a2a3a; border-radius: 6px;
+    padding: 4px 12px; font-size: 12px; color: #8888a0;
+  }
+
+  /* 指标卡 */
+  .metric-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; margin-bottom: 40px; }
+  .metric-card {
+    background: linear-gradient(135deg, #1a1a28, #14141e);
+    border: 1px solid #2a2a3a; border-radius: 12px;
+    padding: 24px; text-align: center;
+  }
+  .metric-card .icon { font-size: 32px; margin-bottom: 8px; }
+  .metric-card .value { font-size: 28px; font-weight: 700; color: #fff; }
+  .metric-card .label { font-size: 14px; color: #8888a0; margin-top: 4px; }
+
+  /* 核心对比区 */
+  .section-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, #2a2a3a, transparent); }
+  
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
+  .compare-card {
+    border-radius: 12px; padding: 28px; position: relative; overflow: hidden;
+  }
+  .compare-card.before { background: linear-gradient(135deg, #1e1420, #1a1a28); border: 1px solid #3a2a3a; }
+  .compare-card.after { background: linear-gradient(135deg, #14201e, #1a1a28); border: 1px solid #2a3a2a; }
+  .compare-card .tag {
+    font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 4px; display: inline-block; margin-bottom: 12px;
+  }
+  .compare-card.before .tag { background: #3a1a1a; color: #e87070; }
+  .compare-card.after .tag { background: #1a3a1a; color: #70e870; }
+  .compare-card h3 { font-size: 20px; color: #fff; margin-bottom: 12px; }
+  .compare-card ul { list-style: none; }
+  .compare-card ul li { font-size: 14px; color: #b0b0c0; padding: 6px 0; line-height: 1.5; padding-left: 20px; position: relative; }
+  .compare-card.before ul li::before { content: '✗'; position: absolute; left: 0; color: #e87070; }
+  .compare-card.after ul li::before { content: '✓'; position: absolute; left: 0; color: #70e870; }
+
+  /* 功能矩阵 */
+  .feature-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 40px; }
+  .feature-card {
+    background: #1a1a28; border: 1px solid #2a2a3a; border-radius: 10px;
+    padding: 20px; transition: border-color 0.2s;
+  }
+  .feature-card:hover { border-color: #e8c547; }
+  .feature-card .f-icon { font-size: 28px; margin-bottom: 8px; }
+  .feature-card h4 { font-size: 16px; color: #fff; margin-bottom: 4px; }
+  .feature-card p { font-size: 13px; color: #8888a0; line-height: 1.5; }
+  .feature-card .tag-green {
+    display: inline-block; font-size: 10px; background: #1a3a1a; color: #70e870;
+    padding: 2px 8px; border-radius: 4px; margin-top: 6px;
+  }
+
+  /* 数据流图 */
+  .flow-section { background: #1a1a28; border: 1px solid #2a2a3a; border-radius: 12px; padding: 28px; margin-bottom: 30px; }
+  .flow-title { font-size: 16px; font-weight: 700; color: #e8c547; margin-bottom: 16px; letter-spacing: 1px; }
+  .flow-row { display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .flow-node {
+    background: #14141e; border: 1px solid #2a2a3a; border-radius: 8px;
+    padding: 10px 16px; text-align: center; min-width: 100px;
+  }
+  .flow-node .fn-icon { font-size: 20px; }
+  .flow-node .fn-label { font-size: 11px; color: #b0b0c0; margin-top: 2px; }
+  .flow-arrow { color: #3a3a50; font-size: 18px; }
+  .flow-highlight { margin-top: 12px; text-align: center; font-size: 12px; color: #8888a0; }
+
+  /* 底部 */
+  .footer {
+    margin-top: auto; text-align: center; padding-top: 20px;
+    border-top: 1px solid #2a2a3a; font-size: 13px; color: #555570;
+  }
+  .footer .links { display: flex; justify-content: center; gap: 24px; margin-bottom: 8px; }
+  .footer .links a { color: #8888a0; text-decoration: none; }
+  .footer .links a:hover { color: #e8c547; }
+</style>
+</head>
+<body>
+
+<!-- 标题 -->
+<div class="header">
+  <div class="header-left">
+    <h1>🛡️ <span>System Guardian</span></h1>
+    <p>Hermes Agent · 系统卫士 · 一条命令 3 秒查清</p>
+    <div class="badge-row">
+      <span class="badge">⚡ 一条命令</span>
+      <span class="badge">📊 12 项检查</span>
+      <span class="badge">🔓 开源 MIT</span>
+      <span class="badge">🐍 Hermes Agent</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="num">3s</div>
+    <div class="label">完成一次全量自检</div>
+  </div>
+</div>
+
+<!-- 指标卡 -->
+<div class="metric-row">
+  <div class="metric-card">
+    <div class="icon">🔍</div>
+    <div class="value">12</div>
+    <div class="label">检查维度</div>
+  </div>
+  <div class="metric-card">
+    <div class="icon">🕒</div>
+    <div class="value">3s</div>
+    <div class="label">单次耗时</div>
+  </div>
+  <div class="metric-card">
+    <div class="icon">📦</div>
+    <div class="value">4</div>
+    <div class="label">独立组件</div>
+  </div>
+  <div class="metric-card">
+    <div class="icon">💚</div>
+    <div class="value">34d</div>
+    <div class="label">持续健康</div>
+  </div>
+</div>
+
+<!-- 对比 -->
+<div class="section-title">不用 vs 用了</div>
+<div class="compare-grid">
+  <div class="compare-card before">
+    <div class="tag">Before · 没有 System Guardian</div>
+    <h3>配置在漂移，你不知道</h3>
+    <ul>
+      <li>改了一个配置，忘了同步其他场景</li>
+      <li>记忆超限，新东西写不进去</li>
+      <li>Cron job 挂了三天没人知道</li>
+      <li>心跳停了，系统已经"脑死亡"</li>
+      <li>出问题了到处翻日志</li>
+    </ul>
+  </div>
+  <div class="compare-card after">
+    <div class="tag">After · 使用 System Guardian</div>
+    <h3>一眼看清，哪里不对修哪里</h3>
+    <ul>
+      <li>一条命令 3 秒跑完 12 项检查</li>
+      <li>版本漂移自动告警</li>
+      <li>记忆水位自动监控，超限即知</li>
+      <li>Cron 调度 / 心跳实时可见</li>
+      <li>症候群诊断直接指向根因</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 功能矩阵 -->
+<div class="section-title">四个组件 · 按需加载</div>
+<div class="feature-grid">
+  <div class="feature-card">
+    <div class="f-icon">🔍</div>
+    <h4>system-guardian</h4>
+    <p>核心自检 + 审计 + 心跳监控 + Goal 评估。每天跑一次，系统还活着吗？一眼看清。</p>
+    <span class="tag-green">核心组件</span>
+  </div>
+  <div class="feature-card">
+    <div class="f-icon">⏰</div>
+    <h4>cron-manager</h4>
+    <p>定时任务管理。三句话建好 cron job，排查常见的调度问题，interval 格式错误一键定位。</p>
+    <span class="tag-green">独立组件</span>
+  </div>
+  <div class="feature-card">
+    <div class="f-icon">🚀</div>
+    <h4>system-onboarding</h4>
+    <p>首次开箱引导。新装 Hermes 后走一次，SOUL / config / .bashrc 全部配置到位。</p>
+    <span class="tag-green">一次使用</span>
+  </div>
+  <div class="feature-card">
+    <div class="f-icon">🎯</div>
+    <h4>goal-tracker</h4>
+    <p>系统目标管理。设定连续达标天数，自动追踪，达成自动标记 🏆。</p>
+    <span class="tag-green">可选组件</span>
+  </div>
+  <div class="feature-card">
+    <div class="f-icon">📜</div>
+    <h4>compliance-check.sh</h4>
+    <p>独立自检脚本。不依赖 Hermes，任何 Linux/Mac/WSL 直接跑，10 项检查。</p>
+    <span class="tag-green">独立运行</span>
+  </div>
+  <div class="feature-card">
+    <div class="f-icon">📊</div>
+    <h4>role-audit.sh</h4>
+    <p>角色审计工具。检查角色自带能力 vs 仓库支撑的匹配率，修复"覆盖率错觉"。</p>
+    <span class="tag-green">治理工具</span>
+  </div>
+</div>
+
+<!-- 数据流 -->
+<div class="flow-section">
+  <div class="flow-title">⚙️ 工作流 · 一次自检的全过程</div>
+  <div class="flow-row">
+    <div class="flow-node"><div class="fn-icon">🖥️</div><div class="fn-label">你输命令</div></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-node"><div class="fn-icon">📋</div><div class="fn-label">12项检查</div></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-node"><div class="fn-icon">📊</div><div class="fn-label">输出报告</div></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-node" style="border-color:#e8c547;"><div class="fn-icon">✅⚠️❌</div><div class="fn-label" style="color:#e8c547;">绿/黄/红</div></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-node"><div class="fn-icon">🎯</div><div class="fn-label">Goal评估</div></div>
+  </div>
+  <div class="flow-highlight">检查 → 报告 → 评估，全程自动化，不打扰你的工作</div>
+</div>
+
+<!-- 底部 -->
+<div class="footer">
+  <div class="links">
+    <a href="https://github.com/sqzy1314520/system-guardian">GitHub</a>
+    <a href="https://gitee.com/ai-with-mei/system-guardian">Gitee</a>
+    <a href="https://github.com/sqzy1314520/system-guardian/blob/main/LICENSE">MIT License</a>
+  </div>
+  <p>MIT Licensed · Built for Hermes Agent Community</p>
+</div>
+
+</body>
+</html>
