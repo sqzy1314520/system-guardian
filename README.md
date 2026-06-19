@@ -1,145 +1,101 @@
 # System Guardian · 系统卫士 🇨🇳🌐
 
-**Your Hermes Agent is fragile. One wrong config and it breaks.**  
-**System Guardian hardens it in 3 minutes.**
-
-*你的 Hermes Agent 很脆弱。一个配错就崩。System Guardian 3 分钟让它变硬。*
+**Your Hermes Agent. One command health check. 12 dimensions. 3 seconds.**  
+*你的 Hermes Agent。一条命令，12 维检查，3 秒出结果。*
 
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Hermes Agent](https://img.shields.io/badge/Hermes%20Agent-v0.10%2B-blueviolet)](https://hermes-agent.nousresearch.com)
-[![Skill](https://img.shields.io/badge/agentskills.io-compatible-orange)](https://agentskills.io)
-![Last commit](https://img.shields.io/github/last-commit/sqzy1314520/system-guardian)
+[![Last commit](https://img.shields.io/github/last-commit/sqzy1314520/system-guardian)](https://github.com/sqzy1314520/system-guardian)
 
 ---
 
-## What it looks like · 装完就这样
+## What it looks like · 跑起来就这样
+
+![selfcheck](screenshot-selfcheck.png)
 
 One command, 12 checks, 3 seconds. Your whole system health, at a glance.
 
-```
-═══════════════════════════════════════════
-  执行纪律巡检 · 2026-06-16 14:17
-═══════════════════════════════════════════
-
-── 11. 外部记忆（Mnemosyne）——
-✅ control: memory.provider = mnemosyne
-✅ Mnemosyne 读写正常（写→读→删全链路验证）
-── 12. 外部记忆治理合规 ——
-✅ control: mnemosyne home → centralized ✓
-
-  2项违规  2项警告
-  ✅ 28  ⚠️ 2  ❌ 2
-
-═══════════════════════════════════════════
-  症候群诊断 · 不是多个独立问题，是一个根因。
-═══════════════════════════════════════════
-✅ 未检测到关联故障模式，各项指标独立健康。
-```
-
 ---
 
-## The problem · 你遇到的
+## Quick start · 30 秒上手
 
-| You installed Hermes and... | System Guardian solves it |
-|----------------------------|--------------------------|
-| "Where do I even start?" | 🏗️ **Build** — 3 questions, auto-setup. SOUL.md, config, .bashrc, all done. |
-| "Is my system still healthy today?" | ✅ **Check** — One command, 6 dimensions, 3 seconds. External memory, cron, capabilities, compliance. |
-| "Something broke. Where do I look?" | 🔍 **Diagnose** — 7-dimension deep probe with syndrome detection. Not symptoms → root cause. |
-| "What can my agent actually do?" | 📋 **Capability** — See/Hear/Read/Speak/Create, one matrix. |
-
----
-
-## 30-second quick start · 30秒上手
+### Option A: Install as a Hermes skill
 
 ```bash
 hermes skills install https://github.com/sqzy1314520/system-guardian/raw/main/SKILL.md
 ```
 
-Then just say:
+Then just say to your agent:
 
 | You say | What happens |
 |---------|-------------|
-| "帮我建系统" / "Build my system" | 3 questions → full governance setup |
-| "检查一下" / "Check health" | 6-dimension scan in 3 seconds |
-| "查查哪里不对" / "Diagnose" | 7-dimension deep audit + syndrome detection *(L3)* |
-| "我能做什么" / "What can you do" | Capability matrix |
+| "检查一下" / "Check health" | 10-dimension scan in 3 seconds |
+| "查查哪里不对" / "Diagnose" | Deep audit + root cause analysis |
 
-No config files to edit. No YAML to write. Just talk to your agent.
+### Option B: Run standalone (no Hermes needed)
 
----
+```bash
+# Download the check script
+curl -O https://raw.githubusercontent.com/sqzy1314520/system-guardian/main/scripts/compliance-check.sh
 
-## Editions · 版本
+# Make it executable
+chmod +x compliance-check.sh
 
-**Not "free = less, paid = more". Different problems need different tools.**
-
-| | L1: Setup | L2: Daily | L3: Deep Diagnose |
-|:---:|:---------:|:---------:|:-----------------:|
-| Who needs it | Just installed Hermes, don't know where to start | Daily health check user | Something broke, need root cause |
-| Build wizard | ✅ Full | ✅ Full | ✅ Full |
-| Health check | — | ✅ 6 dimensions | ✅ 6 dimensions + auto script |
-| Architecture audit | — | — | ✅ 7-dimension + triad report |
-| Capability matrix | ✅ Full | ✅ Full | ✅ Full |
-| One-click check script | — | — | ✅ `compliance-check.sh` |
-| Syndrome detection | — | — | ✅ links symptoms → root cause |
-| **Price** | **Free** | **Free** | **Sponsor** |
-
----
-
----
-
-## Sponsor · 赞助
-
-**Free edition works for daily use.** Upgrade to L3 when you hit a real problem — cron stopped, heartbeat timed out, version drift across scenes. L3 doesn't give you "more features". It gives you **root cause instead of symptoms**.
-
-| Tier | Price | What you get |
-|------|-------|-------------|
-| ☕ Basic | 19.9 CNY / $5 USD | L3 skill pack: 7-dim audit + syndrome detection + scripts |
-| 🏆 Deep | 199 CNY / $30 USD | L3 + 1-on-1 remote setup + custom rules |
-
-- 🇨🇳 [爱发电](https://afdian.com/a/meijiexueAI)
-- 🌐 [Buy Me a Coffee](https://buymeacoffee.com/sqzy1314520)
-
----
-
-## Project structure
-
-```
-system-guardian/
-├── SKILL.md                        ← L1+L2 (free) entry point
-├── references/
-│   ├── build-guide.md              ← Build wizard
-│   ├── check-procedure.md          ← Self-check items
-│   └── capability-guide.md         ← 5-dimension capability
-├── premium/                        ← L3 (sponsor access)
-│   ├── SKILL.md
-│   ├── references/
-│   │   ├── check-procedure.md      ← Full 12 items
-│   │   ├── audit-protocol.md       ← 7-dimension audit
-│   │   └── monetization-strategy.md
-│   └── scripts/
-│       ├── compliance-check.sh     ← One-click health check
-│       ├── audit-report.sh         ← Audit report generator
-│       └── syndrome-detect.sh      ← Syndrome → root cause
-├── README.md
-├── CHANGELOG.md
-└── LICENSE
+# Run it (customize HERMES_HOME if needed)
+HERMES_HOME=~/.hermes bash compliance-check.sh
 ```
 
 ---
 
-## Community
+## What's included · 有什么
 
-- 🐛 [Report Issues](https://github.com/sqzy1314520/system-guardian/issues)
-- 💬 [Hermes Agent Discord](https://discord.gg/nousresearch) — share in `#plugins-skills-and-skins`
-- 📖 [Hermes Agent Docs — Skills](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills)
-- ⭐ [Star on GitHub](https://github.com/sqzy1314520/system-guardian)
+| Component | What it does | Public |
+|:---------|:-------------|:------:|
+| **system-guardian** | Self-check, audit, heartbeat, goal evaluation | ✅ MIT |
+| **compliance-check.sh** | 10-dimension health check script (standalone) | ✅ MIT |
+| **cron-manager** | Cron job creation, audit, troubleshooting | ✅ MIT |
+| **system-onboarding** | First-time setup wizard | ✅ MIT |
+| **goal-tracker** | System goal management | ✅ MIT |
+
+Details in [`skills/`](skills/) directory.
+
+---
+
+## The problem it solves · 解决什么问题
+
+| You installed Hermes and... | System Guardian solves it |
+|----------------------------|---------------------------|
+| "Is my system still healthy today?" | **Check** — One command, 10 dimensions, a few seconds. Memory, cron, heartbeat, external memory, compliance. |
+| "Something broke. Where do I look?" | **Diagnose** — Deep probe with syndrome detection. Not symptoms → root cause. |
+| "I need a cron job but don't know how" | **cron-manager** — 3 questions, auto-setup. |
+
+---
+
+## Scripts included · 内附脚本
+
+| Script | Lines | What it checks |
+|:-------|:-----:|:---------------|
+| `scripts/compliance-check.sh` | ~130 | Identity, version anchor, memory watermark, skills health, cron, heartbeat, Mnemosyne, approvals, backup |
+
+Usage:
+
+```bash
+HERMES_HOME=~/.hermes bash scripts/compliance-check.sh
+```
 
 ---
 
 ## License
 
-MIT — L1+L2 free edition. L3 requires sponsor access.
+MIT — do whatever you want, just don't blame us.
 
 ---
 
-*Built with ❤️ for the Hermes Agent community. 为 Hermes Agent 社区而生。*
+## Sponsor · 赞助
+
+If this saved you time, [buy me a coffee](https://buymeacoffee.com/sqzy1314520) ☕
+国内用户：[爱发电](https://afdian.com/a/meijiexueAI)
+
+---
+
+*Built with ❤️ for the Hermes Agent community.*

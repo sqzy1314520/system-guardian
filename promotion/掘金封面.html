@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Guardian · 系统卫士 封面</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  }
+
+  .cover {
+    width: 1200px;
+    height: 630px;
+    background: linear-gradient(135deg, #0a0e1a 0%, #141b2d 40%, #1a1a2e 70%, #16213e 100%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 80px;
+  }
+
+  /* 装饰网格 */
+  .grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(99, 102, 241, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99, 102, 241, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  /* 顶部光晕 */
+  .glow-top {
+    position: absolute;
+    top: -150px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .glow-bottom {
+    position: absolute;
+    bottom: -200px;
+    left: -150px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.10) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* 盾牌图标 */
+  .shield-icon {
+    position: absolute;
+    top: 50px;
+    left: 80px;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .shield-icon svg {
+    width: 64px;
+    height: 64px;
+  }
+
+  /* 右上角标签 */
+  .badge {
+    position: absolute;
+    top: 50px;
+    right: 80px;
+    display: flex;
+    gap: 12px;
+  }
+
+  .badge-item {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-open-source {
+    background: rgba(99, 102, 241, 0.15);
+    color: #818cf8;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+  }
+
+  .badge-mit {
+    background: rgba(6, 182, 212, 0.12);
+    color: #67e8f9;
+    border: 1px solid rgba(6, 182, 212, 0.25);
+  }
+
+  /* 主内容区 */
+  .content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 900px;
+  }
+
+  .main-title {
+    font-size: 56px;
+    font-weight: 700;
+    color: #f1f5f9;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+
+  .main-title .highlight {
+    background: linear-gradient(135deg, #818cf8, #22d3ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    font-size: 22px;
+    color: #94a3b8;
+    font-weight: 400;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+  }
+
+  /* 四步流程 */
+  .steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    margin-top: 10px;
+  }
+
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .step-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 24px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.2s;
+  }
+
+  .step-icon {
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .step-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: #e2e8f0;
+    letter-spacing: 1px;
+  }
+
+  .step-arrow {
+    color: #475569;
+    font-size: 20px;
+    margin: 0 6px;
+  }
+
+  /* 底部信息 */
+  .footer {
+    position: absolute;
+    bottom: 40px;
+    left: 80px;
+    right: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #64748b;
+    font-size: 14px;
+  }
+
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .footer-left .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #475569;
+  }
+
+  .footer-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .footer-right .github-link {
+    color: #818cf8;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .footer-right .github-link:hover {
+    color: #a5b4fc;
+  }
+
+  /* 装饰线 */
+  .accent-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(99, 102, 241, 0.5) 20%, 
+      rgba(6, 182, 212, 0.5) 50%, 
+      rgba(99, 102, 241, 0.5) 80%, 
+      transparent 100%
+    );
+  }
+
+  /* 角落装饰 */
+  .corner-deco {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border: 1px solid rgba(99, 102, 241, 0.12);
+    pointer-events: none;
+  }
+
+  .corner-tl { top: 30px; left: 30px; border-right: none; border-bottom: none; }
+  .corner-tr { top: 30px; right: 30px; border-left: none; border-bottom: none; }
+  .corner-bl { bottom: 30px; left: 30px; border-right: none; border-top: none; }
+  .corner-br { bottom: 30px; right: 30px; border-left: none; border-top: none; }
+
+  /* 装饰圆点 */
+  .dot-grid {
+    position: absolute;
+    right: 60px;
+    top: 200px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .dot-grid span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #818cf8;
+  }
+</style>
+</head>
+<body>
+<div class="cover">
+
+  <!-- 背景装饰 -->
+  <div class="glow-top"></div>
+  <div class="glow-bottom"></div>
+  <div class="grid-overlay"></div>
+  <div class="corner-deco corner-tl"></div>
+  <div class="corner-deco corner-tr"></div>
+  <div class="corner-deco corner-bl"></div>
+  <div class="corner-deco corner-br"></div>
+  <div class="dot-grid">
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- 盾牌图标 -->
+  <div class="shield-icon">
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M32 6L8 16V28C8 42.4 18.4 55.6 32 60C45.6 55.6 56 42.4 56 28V16L32 6Z" fill="url(#shield-grad)" stroke="#818cf8" stroke-width="1.5"/>
+      <path d="M24 32L30 38L40 26" stroke="#0a0e1a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M24 32L30 38L40 26" stroke="#22d3ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <defs>
+        <linearGradient id="shield-grad" x1="8" y1="6" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#818cf8" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="#22d3ee" stop-opacity="0.1"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- 右上角标签 -->
+  <div class="badge">
+    <span class="badge-item badge-open-source">✦ 开源</span>
+    <span class="badge-item badge-mit">MIT License</span>
+  </div>
+
+  <!-- 主内容 -->
+  <div class="content">
+    <h1 class="main-title">
+      <span class="highlight">System Guardian</span><br>
+      系统卫士
+    </h1>
+    <p class="subtitle">管好你的 Hermes Agent · 从零搭建到生产级治理</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-item">
+          <span class="step-icon">🏗️</span>
+          <span class="step-text">构建</span>
+        </div>
+        <span class="step-arrow">→</span>
+        <div class="step-item">
+          <span class="step-icon">✅</span>
+          <span class="step-text">自查</span>
+        </div>
+        <span class="step-arrow">→</span>
+        <div class="step-item">
+          <span class="step-icon">🔍</span>
+          <span class="step-text">审计</span>
+        </div>
+        <span class="step-arrow">→</span>
+        <div class="step-item">
+          <span class="step-icon">📋</span>
+          <span class="step-text">能力</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <div class="footer">
+    <div class="footer-left">
+      <span>Ξ Hermes Agent</span>
+      <span class="dot"></span>
+      <span>AI 系统治理 · 开源工具</span>
+    </div>
+    <div class="footer-right">
+      <span class="github-link">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        GitHub
+      </span>
+    </div>
+  </div>
+
+  <div class="accent-line"></div>
+</div>
+</body>
+</html>
