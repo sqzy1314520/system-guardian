@@ -1,10 +1,13 @@
 ---
 name: system-guardian
-description: "系统卫士 v3.0 -- 四阶段引导：搭建/日检/故障/成长。快速让新手跑起来，同时保留全部 10 项底层能力。构建/定时/目标功能已迁回，不再需要额外加载独立技能。"
-version: 3.0.0
+description: "System Guardian · 系统卫士 -- 四阶段引导：搭建/日检/故障/成长。快速让新手跑起来，同时保留全部 10 项底层能力。构建/定时/目标功能已迁回，不再需要额外加载独立技能。"
+version: 3.0.1
 category: infra
+capabilities: [governance, self-check, audit, system, infra]
+license: MIT
+compatibility: hermes-agent
 created: 2026-06-13
-updated: 2026-06-24
+updated: 2026-07-01
 changelog:
   - 3.0.0: 四阶段重构——用户入口改为4个日常问题（搭建/日检/故障/成长）。底层10项能力全部保留。拆分出的cron-manager标记reference（迁回），system-onboarding标记deprecated（归档）。新增dispatch审计。42个reference精简为10个活跃。22条Pitfalls精简为12条活跃。
 tags: [governance, self-check, audit]

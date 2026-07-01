@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "name": "system-guardian",
+  "version": "3.0.1",
+  "description": "Four-stage self-check, diagnosis and capability growth for Hermes Agent — 搭建/日检/故障/成长",
+  "license": "MIT",
+  "skills": ["."],
+  "metadata": {
+    "author": "sqzy1314520",
+    "source": "https://github.com/sqzy1314520/system-guardian",
+    "tags": ["hermes-agent", "agent-governance", "self-check", "audit", "system-health"]
+  }
+}
