@@ -132,3 +132,5 @@ PRs welcome. Especially:
 - Reference implementations for other agent frameworks
 
 Built with ❤️ from Hermes Agent ecosystem.
+
+<!-- Gitee sync test - safe to remove -->
