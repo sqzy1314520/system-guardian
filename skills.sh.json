@@ -1,0 +1,14 @@
+{
+  "name": "system-guardian",
+  "description": "Four-stage self-check, diagnosis and capability growth for Hermes Agent — 搭建/日检/故障/成长，四句对话全维健康。",
+  "categories": ["governance", "system-health", "self-check", "devops"],
+  "author": "sqzy1314520",
+  "repository": "https://github.com/sqzy1314520/system-guaridan",
+  "install": "hermes skills install github:sqzy1314520/system-guardian/SKILL.md",
+  "metadata": {
+    "hermes": {
+      "tags": ["governance", "self-check", "audit", "system-health", "infrastructure"],
+      "version": "3.1.0"
+    }
+  }
+}
